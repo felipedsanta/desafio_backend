@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Cadastro de Jogador</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="mt-5">Cadastro de Jogador</h1>
+      <form
+        th:action="@{/cadastro-jogador}"
+        th:method="post"
+        th:object="${jogador}"
+      >
+        <label for="nome">Nome:</label><br />
+        <input type="text" id="nome" th:field="*{nome}" required />
+        <br /><br />
+        <label for="email">Email:</label><br />
+        <input
+          type="text"
+          id="email"
+          th:field="*{email}"
+          required
+        /><br /><br />
+        <label for="telefone">Telefone:</label><br />
+        <input type="text" id="telefone" th:field="*{telefone}" /><br /><br />
+        <label>Escolha um Grupo de Codinome:</label>
+        <div th:each="grupo : ${gruposCodinomes}">
+          <input
+            type="radio"
+            th:field="*{grupoCodinome}"
+            th:value="${grupo.name()}"
+            th:id="${grupo.name()}"
+            required
+          />
+          <label th:for="${grupo.name()}" th:text="${grupo.getNome()}"></label
+          ><br />
+        </div>
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+      </form>
+    </div>
+  </body>
+</html>
